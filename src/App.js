@@ -1,74 +1,80 @@
-import './App.css';
-import ToggleButton from 'react-toggle-button';
-import React, { Component } from 'react';
+import "./App.css";
+import ToggleButton from "react-toggle-button";
+import React, { Component } from "react";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { turnL: false, turnR: false, brake: false, highbeam: false, neutral: false };
+    this.state = {
+      turnL: false,
+      turnR: false,
+      brake: false,
+      highbeam: false,
+      neutral: false,
+    };
   }
 
   setStates = (state) => {
     console.log("State:", state);
     this.setState(state);
-  }
+  };
 
   componentDidMount = () => {
     console.log("Component mounted.", this.state);
-    fetch('/states')
-      .then(res => res.text())
-      .then(state => this.setStates(state));
-  }
+    fetch("/states")
+      .then((res) => res.json())
+      .then((state) => this.setStates(state));
+  };
 
   handleStateChangeTurnL = (isOn) => {
-    fetch('/turnL', { method: 'PUT', body: isOn ? '0' : '1' })
-      .then(res => res.json())
-      .then(state => this.setStates(state));
-  }
+    fetch("/turnL", { method: "PUT", body: isOn ? "0" : "1" })
+      .then((res) => res.json())
+      .then((state) => this.setStates(state));
+  };
 
   handleToggleTurnL = () => {
     this.handleStateChangeTurnL(this.state.turnL);
-  }
+  };
 
   handleStateChangeTurnR = (isOn) => {
-    fetch('/turnR', { method: 'PUT', body: isOn ? '0' : '1' })
-      .then(res => res.json())
-      .then(state => this.setStates(state));
-  }
+    fetch("/turnR", { method: "PUT", body: isOn ? "0" : "1" })
+      .then((res) => res.json())
+      .then((state) => this.setStates(state));
+  };
 
   handleToggleTurnR = () => {
     this.handleStateChangeTurnR(this.state.turnR);
-  }
+  };
 
   handleStateChangeHighbeam = (isOn) => {
-    fetch('/highbeam', { method: 'PUT', body: isOn ? '0' : '1' })
-      .then(res => res.json())
-      .then(state => this.setStates(state));
-  }
+    fetch("/highbeam", { method: "PUT", body: isOn ? "0" : "1" })
+      .then((res) => res.json())
+      .then((state) => this.setStates(state));
+  };
 
   handleToggleHighbeam = () => {
     this.handleStateChangeHighbeam(this.state.highbeam);
-  }
+  };
 
   handleStateChangeBrake = (isOn) => {
-    fetch('/brake', { method: 'PUT', body: isOn ? '0' : '1' })
-      .then(res => res.json())
-      .then(state => this.setStates(state));
-  }
+    fetch("/brake", { method: "PUT", body: isOn ? "0" : "1" })
+      .then((res) => res.json())
+      .then((state) => this.setStates(state));
+  };
 
   handleToggleBrake = () => {
     this.handleStateChangeBrake(this.state.brake);
-  }
+  };
 
   handleStateChangeNeutral = (isOn) => {
-    fetch('/neutral', { method: 'PUT', body: isOn ? '0' : '1' })
-      .then(res => res.json())
-      .then(state => this.setStates(state));
-  }
+    fetch("/neutral", { method: "PUT", body: isOn ? "0" : "1" })
+      .then((res) => res.json())
+      .then((state) => this.setStates(state));
+  };
 
   handleToggleNeutral = () => {
     this.handleStateChangeNeutral(this.state.neutral);
-  }
+  };
 
   render() {
     return (
