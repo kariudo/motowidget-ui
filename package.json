@@ -8,12 +8,14 @@
     "@testing-library/user-event": "^7.1.2",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "react-toggle-button": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "dist": "awot-static",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -29,6 +31,16 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "proxy": "http://192.168.1.149",
+  "awot-static": {
+    "sources": "./build",
+    "indexFile": "index.html",
+    "sketchDir": "../motowidget-server/src",
+    "exclude": [
+      "*.map",
+      "service-worker.js"
     ]
   }
 }
