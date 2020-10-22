@@ -66,7 +66,7 @@ class App extends Component {
       .then(state => this.setStates(state));
   }
 
-  handleToggleHighbeam = () => {
+  handleToggleNeutral = () => {
     this.handleStateChangeNeutral(this.state.neutral);
   }
 
