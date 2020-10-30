@@ -13,6 +13,61 @@
   color: white;
 }
 
+#Motorcycle {
+  width: 90%;
+}
+
+#Neutral {
+  position: relative;
+  top: -1.8em;
+  color: lightgreen;
+  font-weight: 800;
+  font-size: 2em;
+}
+
 .App-link {
   color: #61dafb;
+}
+
+.turn-left-on #left_signal_light {
+  animation: blinky 1s infinite;
+}
+
+.turn-right-on #right_signal_light {
+  animation: blinky 1s infinite;
+}
+
+.brake-off #brake_light {
+  opacity: 0;
+  animation: fader 0.5s;
+}
+
+.highbeam-on #headlamp {
+  fill: white;
+}
+
+.highbeam-on #highbeam_indicator {
+  fill: rgb(0, 153, 255);
+  opacity: 1;
+}
+
+@keyframes fader {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes blinky {
+  0% {
+    fill: yellow;
+  }
+  50% {
+    fill: gray;
+  }
+  100% {
+    fill: yellow;
+  }
 }

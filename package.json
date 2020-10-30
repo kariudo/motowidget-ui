@@ -42,5 +42,8 @@
       "*.map",
       "service-worker.js"
     ]
+  },
+  "devDependencies": {
+    "@svgr/webpack": "^5.4.0"
   }
 }

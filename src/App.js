@@ -1,11 +1,15 @@
 import "./App.css";
 import ToggleButton from "react-toggle-button";
 import React, { Component } from "react";
+import SvgMotorcycle from "./Motorcycle";
+import fetch from "./fetchWithTimeout";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      timeout: 1000,
+      headlightOn: false,
       turnL: false,
       turnR: false,
       brake: false,
@@ -15,16 +19,35 @@ class App extends Component {
   }
 
   setStates = (state) => {
-    console.log("State:", state);
+    state.headlightOn = true;
+    console.debug("State:", state);
     this.setState(state);
   };
 
-  componentDidMount = () => {
-    console.log("Component mounted.", this.state);
-    fetch("/states")
+  refreshStates = () => {
+    fetch("/states", {}, this.state.timeout)
       .then((res) => res.json())
-      .then((state) => this.setStates(state));
+      .then((state) => this.setStates(state), ()=> this.setState({headlightOn:false}));
+  }
+
+  componentDidMount = () => {
+    console.debug("Component updated.");
+    this.refreshStates();
+    setInterval(() => {
+      this.refreshStates();
+    }, this.state.timeout);
   };
+
+  motorcycleStatusClasses = () => {
+    var classes = [];
+
+    if(this.state.turnL) classes.push("turn-left-on");
+    if(this.state.turnR) classes.push("turn-right-on");
+    if(!this.state.brake) classes.push("brake-off");
+    if(this.state.highbeam) classes.push("highbeam-on");
+
+    return classes.join(" ");
+  }
 
   handleStateChangeTurnL = (isOn) => {
     fetch("/turnL", { method: "PUT", body: isOn ? "0" : "1" })
@@ -80,27 +103,32 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h3>Left Turn Signal</h3>
+          <SvgMotorcycle
+          neutral={this.state.neutral}
+          headlightOn={this.state.headlightOn}
+          className={this.motorcycleStatusClasses()}
+          id="Motorcycle"/>
+          <h4>Left Turn Signal</h4>
           <ToggleButton
             value={this.state.turnL}
             onToggle={this.handleToggleTurnL}
           />
-          <h3>Right Turn Signal</h3>
+          <h4>Right Turn Signal</h4>
           <ToggleButton
             value={this.state.turnR}
             onToggle={this.handleToggleTurnR}
           />
-          <h3>High Beam</h3>
+          <h4>High Beam</h4>
           <ToggleButton
             value={this.state.highbeam}
             onToggle={this.handleToggleHighbeam}
           />
-          <h3>Brake</h3>
+          <h4>Brake</h4>
           <ToggleButton
             value={this.state.brake}
             onToggle={this.handleToggleBrake}
           />
-          <h3>Neutral</h3>
+          <h4>Neutral</h4>
           <ToggleButton
             value={this.state.neutral}
             onToggle={this.handleToggleNeutral}
