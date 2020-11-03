@@ -132,7 +132,7 @@ export default (props) => {
           <ellipse cx={79.881} cy={16.715} rx={8.151} ry={3.331} />
           <path d="M71.73 16.831h16.3v9.498h-16.3z" />
         </g>
-        <g transform="rotate(-20 198.851 20.611) scale(.4)" stroke="#000">
+        <g transform="rotate(-20 198.851 20.611) scale(.4)" stroke="#000" onClick={props.clickRight}>
           <path
             id="right_signal_light"
             d="M40.95 20.342l-13.322 3.57v14.22L40.95 41.7z"
@@ -149,7 +149,7 @@ export default (props) => {
             strokeLinecap="square"
           />
         </g>
-        <g transform="scale(-.4 .4) rotate(-20 242.21 1497.24)" stroke="#000">
+        <g transform="scale(-.4 .4) rotate(-20 242.21 1497.24)" stroke="#000" onClick={props.clickLeft}>
           <path
             id="left_signal_light"
             d="M40.95 20.342l-13.322 3.57v14.22L40.95 41.7z"
@@ -196,15 +196,6 @@ export default (props) => {
         <circle cx={26.08} cy={91.868} r={9.473} fill="#333" />
         <circle cx={177.61} cy={91.868} r={9.473} fill="#333" />
         <circle cx={101.231} cy={63.07} r={23.022} fillRule="evenodd" />
-        <circle
-          id="headlamp"
-          cx={101.121}
-          cy={63.18}
-          r={17.955}
-          fill={props.headlightOn ? "lightgray" : "#666"}
-          fillRule="evenodd"
-          filter={props.headlightOn ? "url(#glow)" : ""}
-        />
          <text
           id="neutral_indicator"
           opacity={props.neutral ? 1 : 0}
@@ -218,12 +209,31 @@ export default (props) => {
         >
           {"N"}
         </text>
-        <path
-          id="highbeam_indicator"
-          transform="translate(15,25)"
-          opacity={0.1}
-          d="M88.025 32.365c-3.175 0-3.175 11.43 0 11.43s7.144-2.143 7.144-5.715-3.969-5.715-7.144-5.715m.08 9.842c-.318-.317-.873-1.746-.873-4.127 0-2.382.555-3.81.873-4.128 2.302.08 5.477 1.508 5.477 4.128 0 2.619-3.175 4.048-5.477 4.127m-8.811-9.684h5.953c-.159.318-.397.635-.476 1.112-.08.158-.08.317-.159.476h-5.318v-1.588m4.763 4.763h-4.763v-1.588h4.921c-.08.477-.08 1.032-.158 1.588m.555 4.762c.159.635.397 1.112.715 1.588h-5.954v-1.588h5.24m-.398-1.587h-4.921v-1.588h4.762c.08.556.08 1.112.16 1.588z"
-        />
+        <g onClick={props.clickHigh}>  
+          <circle
+            id="headlamp"
+            cx={101.121}
+            cy={63.18}
+            r={17.955}
+            fill={props.headlightOn ? "lightgray" : "#666"}
+            fillRule="evenodd"
+            filter={props.headlightOn ? "url(#glow)" : ""}
+            />
+          <path
+            id="highbeam_indicator"
+            transform="translate(15,25)"
+            opacity={0.1}
+            d="M88.025 32.365c-3.175 0-3.175 11.43 0 11.43s7.144-2.143 7.144-5.715-3.969-5.715-7.144-5.715m.08 9.842c-.318-.317-.873-1.746-.873-4.127 0-2.382.555-3.81.873-4.128 2.302.08 5.477 1.508 5.477 4.128 0 2.619-3.175 4.048-5.477 4.127m-8.811-9.684h5.953c-.159.318-.397.635-.476 1.112-.08.158-.08.317-.159.476h-5.318v-1.588m4.763 4.763h-4.763v-1.588h4.921c-.08.477-.08 1.032-.158 1.588m.555 4.762c.159.635.397 1.112.715 1.588h-5.954v-1.588h5.24m-.398-1.587h-4.921v-1.588h4.762c.08.556.08 1.112.16 1.588z"
+            />
+        </g>
+      </g>
+      <g onClick={props.clickHazard}>
+        <path transform="translate(160, 5)
+                         scale(.5)"
+              fill="darkred"
+              opacity={props.hazardOn ? 1 : 0.5}
+              filter={props.hazardOn ? "url(#glow)" : ""}
+              d="M12,12L14.33,16H9.68L12,12M12,8L6.21,18H17.8L12,8M12,2L1,21H23L12,2M12,6L19.53,19H4.47L12,6Z" />
       </g>
     </svg>
   );

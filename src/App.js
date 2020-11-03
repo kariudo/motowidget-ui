@@ -35,7 +35,7 @@ class App extends Component {
     this.refreshStates();
     setInterval(() => {
       this.refreshStates();
-    }, this.state.timeout);
+    }, this.state.timeout * 3);
   };
 
   motorcycleStatusClasses = () => {
@@ -99,13 +99,28 @@ class App extends Component {
     this.handleStateChangeNeutral(this.state.neutral);
   };
 
+  handleStateChangeHazard = (isOn) => {
+    fetch("/hazard", { method: "PUT", body: isOn ? "0" : "1"})
+      .then((res) => res.json())
+      .then((state) => this.setStates(state));
+  };
+
+  handleClickHazard = () => {
+    this.handleStateChangeHazard(this.state.turnL && this.state.turnR);
+  };
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <SvgMotorcycle
+          clickRight={this.handleToggleTurnR}
+          clickLeft={this.handleToggleTurnL}
+          clickHigh={this.handleToggleHighbeam}
+          clickHazard={this.handleClickHazard}
           neutral={this.state.neutral}
           headlightOn={this.state.headlightOn}
+          hazardOn={this.state.turnL && this.state.turnR}
           className={this.motorcycleStatusClasses()}
           id="Motorcycle"/>
           <h4>Left Turn Signal</h4>
