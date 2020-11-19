@@ -13,7 +13,7 @@ class App extends Component {
       turnL: false,
       turnR: false,
       brake: false,
-      highbeam: false,
+      highBeam: false,
       neutral: false,
     };
   }
@@ -44,7 +44,7 @@ class App extends Component {
     if(this.state.turnL) classes.push("turn-left-on");
     if(this.state.turnR) classes.push("turn-right-on");
     if(!this.state.brake) classes.push("brake-off");
-    if(this.state.highbeam) classes.push("highbeam-on");
+    if(this.state.highBeam) classes.push("highbeam-on");
 
     return classes.join(" ");
   }
@@ -70,13 +70,13 @@ class App extends Component {
   };
 
   handleStateChangeHighbeam = (isOn) => {
-    fetch("/highbeam", { method: "PUT", body: isOn ? "0" : "1" })
+    fetch("/highBeam", { method: "PUT", body: isOn ? "0" : "1" })
       .then((res) => res.json())
       .then((state) => this.setStates(state));
   };
 
   handleToggleHighbeam = () => {
-    this.handleStateChangeHighbeam(this.state.highbeam);
+    this.handleStateChangeHighbeam(this.state.highBeam);
   };
 
   handleStateChangeBrake = (isOn) => {
@@ -135,7 +135,7 @@ class App extends Component {
           />
           <h4>High Beam</h4>
           <ToggleButton
-            value={this.state.highbeam}
+            value={this.state.highBeam}
             onToggle={this.handleToggleHighbeam}
           />
           <h4>Brake</h4>
